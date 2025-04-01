@@ -2,7 +2,7 @@
 
 import { db } from "@/services/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import React, { useEffect, useState, useCallback, Suspense } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { StartupCard as StartupCardType } from "@/types/StartupCard";
@@ -69,7 +69,7 @@ export default function StartupCards() {
 
   useEffect(() => {
     fetchStartupCards();
-  }, [selectedIndustry]);
+  }, [fetchStartupCards]);
 
   if (isLoading) {
     return (
