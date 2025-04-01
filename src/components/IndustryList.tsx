@@ -4,6 +4,13 @@ import { db } from "@/services/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useIndustryStore } from "@/store/industryStore";
+import { handleError, formatErrorMessage } from "@/utils/error-handler";
+
+const LoadingSpinner = () => (
+  <div className="flex justify-center items-center h-12">
+    <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-gray-900"></div>
+  </div>
+);
 
 type TIndustry = {
   id: string;
@@ -13,12 +20,16 @@ type TIndustry = {
 
 export default function IndustryList() {
   const [industry, setIndustry] = useState<TIndustry[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const selectedIndustry = useIndustryStore((state) => state.selectedIndustry);
   const setSelectedIndustry = useIndustryStore(
     (state) => state.setSelectedIndustry
   );
 
   async function getIndustry() {
+    setIsLoading(true);
+    setError(null);
     try {
       const res = await getDocs(collection(db, "industry"));
       setIndustry(
@@ -28,8 +39,12 @@ export default function IndustryList() {
           industry_count: doc.data().industry_count,
         }))
       );
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      const appError = handleError(err);
+      console.error("Error fetching industries:", appError);
+      setError(formatErrorMessage(appError));
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -43,8 +58,31 @@ export default function IndustryList() {
     (item) => item.id === selectedIndustry
   )?.industry_name;
 
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
+  if (error) {
+    return (
+      <div className="text-red-500 text-center p-4">
+        <p>{error}</p>
+        <button
+          onClick={() => getIndustry()}
+          className="mt-2 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        >
+          Try Again
+        </button>
+      </div>
+    );
+  }
+
   return (
-    <div className="p-2 sm:p-4" dir="rtl">
+    <div
+      className="p-2 sm:p-4"
+      dir="rtl"
+      role="navigation"
+      aria-label="Industry filter"
+    >
       <h1 className="font-bold text-2xl sm:text-3xl mb-4 sm:mb-6">
         استكشف الشركات الناشئة
       </h1>

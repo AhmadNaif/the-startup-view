@@ -2,11 +2,38 @@
 
 import { db } from "@/services/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, Suspense } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { StartupCard as StartupCardType } from "@/types/StartupCard";
 import { useIndustryStore } from "@/store/industryStore";
 import { handleError, formatErrorMessage } from "@/utils/error-handler";
+
+const LoadingSpinner = () => (
+  <div className="flex justify-center items-center h-64">
+    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900"></div>
+  </div>
+);
+
+const ErrorDisplay = ({
+  error,
+  retry,
+}: {
+  error: string;
+  retry: () => void;
+}) => (
+  <div className="flex justify-center items-center h-64">
+    <div className="text-red-500 text-center">
+      <p>{error}</p>
+      <button
+        onClick={retry}
+        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      >
+        Try Again
+      </button>
+    </div>
+  </div>
+);
 
 export default function StartupCards() {
   const [startupCards, setStartupCards] = useState<StartupCardType[]>([]);
@@ -90,11 +117,15 @@ export default function StartupCards() {
             <div className="p-6 flex flex-col items-center text-center">
               <div className="w-24 h-24 mb-4 relative">
                 {startup.startup_logo ? (
-                  <img
-                    src={startup.startup_logo}
-                    alt={startup.startup_name}
-                    className="w-full h-full object-contain"
-                  />
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={startup.startup_logo}
+                      alt={startup.startup_name}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-contain"
+                    />
+                  </div>
                 ) : (
                   <div className="w-full h-full bg-gray-200 rounded-full flex items-center justify-center">
                     <span className="text-gray-500 text-xl font-bold">
