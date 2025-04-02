@@ -25,9 +25,9 @@ export default function InvestorsPage() {
         setInvestorData([]);
       } else {
         const data = res.docs.map((doc) => ({
-          ...doc.data(),
           id: doc.id,
-        }));
+          ...doc.data(),
+        })) as InvestorData[];
         setInvestorData(data);
         console.log(data);
       }
