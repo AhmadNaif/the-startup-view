@@ -5,6 +5,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { startup_details } from "@/types/startup_details";
 import {
   handleError,
@@ -92,9 +93,11 @@ export default function StartupDetails() {
         <div className="p-4 sm:p-6">
           {/* Logo and Name at the top */}
           <div className="flex flex-col sm:flex-row items-center mb-6 gap-4">
-            <img
+            <Image
               src={startup.startup_logo}
               alt={startup.startup_name}
+              width={80}
+              height={80}
               className="w-20 h-20 sm:w-16 sm:h-16 object-cover rounded-md"
             />
             <div className="flex flex-col w-full text-center sm:text-right">

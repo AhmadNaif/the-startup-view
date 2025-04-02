@@ -3,9 +3,18 @@ import { db } from "@/services/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
+
+interface InvestorData {
+  id: string;
+  investor_logo?: string;
+  investor_name: string;
+  investor_description: string;
+  investor_startups?: Array<{ id: string; name: string }>;
+}
 
 export default function InvestorsPage() {
-  const [investorData, setInvestorData] = React.useState<any>([]);
+  const [investorData, setInvestorData] = React.useState<InvestorData[]>([]);
   const [isLoading, setIsLoading] = React.useState(true);
 
   async function fetchInvestorData() {
@@ -49,7 +58,7 @@ export default function InvestorsPage() {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {investorData.map((investor: any) => (
+          {investorData.map((investor) => (
             <div
               key={investor.id}
               className="border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200"
@@ -58,11 +67,11 @@ export default function InvestorsPage() {
                 <div className="p-6 flex flex-col items-center text-center">
                   <div className="w-16 h-16 mb-4 relative">
                     {investor.investor_logo ? (
-                      <img
+                      <Image
                         src={investor.investor_logo}
                         alt={investor.investor_name}
-                        width="64"
-                        height="64"
+                        width={64}
+                        height={64}
                         className="object-contain"
                       />
                     ) : (

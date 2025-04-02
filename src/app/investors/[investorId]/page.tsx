@@ -4,6 +4,7 @@ import { doc, getDoc } from "firebase/firestore";
 import React from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import {
   handleError,
   formatErrorMessage,
@@ -137,9 +138,11 @@ export default function InvestorDetailsPage() {
           {/* Logo and Name at the top */}
           <div className="flex flex-col sm:flex-row items-center mb-6 gap-4">
             {investor.investor_logo ? (
-              <img
+              <Image
                 src={investor.investor_logo}
                 alt={investor.investor_name}
+                width={128}
+                height={128}
                 className="w-24 h-24 sm:w-32 sm:h-32 object-contain rounded-lg shadow-sm"
               />
             ) : (
@@ -176,9 +179,11 @@ export default function InvestorDetailsPage() {
                         <div className="flex flex-col items-center">
                           <div className="w-16 h-16 mb-3">
                             {startup.startup_logo ? (
-                              <img
+                              <Image
                                 src={startup.startup_logo}
                                 alt={startup.name}
+                                width={64}
+                                height={64}
                                 className="w-full h-full object-contain rounded-lg"
                               />
                             ) : (

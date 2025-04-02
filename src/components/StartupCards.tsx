@@ -9,32 +9,6 @@ import { StartupCard as StartupCardType } from "@/types/StartupCard";
 import { useIndustryStore } from "@/store/industryStore";
 import { handleError, formatErrorMessage } from "@/utils/error-handler";
 
-const LoadingSpinner = () => (
-  <div className="flex justify-center items-center h-64">
-    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900"></div>
-  </div>
-);
-
-const ErrorDisplay = ({
-  error,
-  retry,
-}: {
-  error: string;
-  retry: () => void;
-}) => (
-  <div className="flex justify-center items-center h-64">
-    <div className="text-red-500 text-center">
-      <p>{error}</p>
-      <button
-        onClick={retry}
-        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-      >
-        Try Again
-      </button>
-    </div>
-  </div>
-);
-
 export default function StartupCards() {
   const [startupCards, setStartupCards] = useState<StartupCardType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
