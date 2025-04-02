@@ -45,11 +45,8 @@ export default function InvestorsPage() {
   return (
     <div dir="rtl" className="p-4 max-w-7xl mx-auto mt-12">
       <div className="text-center mb-10">
-        <h1 className="text-4xl font-bold mb-2">أبرز المستثمرين</h1>
-        <p className="text-xl text-gray-600">
-          اكتشف أنشط شركات رأس المال الاستثماري والمستثمرين الملائكة الذين
-          يدعمون الشركات الناشئة في مراحلها المبكرة
-        </p>
+        <h1 className="text-4xl font-bold mb-2">أبرز صناديق الأستثمار</h1>
+        <p className="text-xl text-gray-600">استكشف الصناديق الأستثماريه</p>
       </div>
 
       {isLoading ? (

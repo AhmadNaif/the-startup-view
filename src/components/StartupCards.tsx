@@ -72,7 +72,7 @@ export default function StartupCards() {
   if (startupCards.length === 0) {
     return (
       <div className="flex justify-center items-center h-64">
-        <p className="text-gray-500 text-lg">No startups found</p>
+        <p className="text-gray-500 text-lg">حدث خطاء</p>
       </div>
     );
   }
