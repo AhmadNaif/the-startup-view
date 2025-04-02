@@ -93,13 +93,24 @@ export default function StartupDetails() {
         <div className="p-4 sm:p-6">
           {/* Logo and Name at the top */}
           <div className="flex flex-col sm:flex-row items-center mb-6 gap-4">
-            <Image
-              src={startup.startup_logo}
-              alt={startup.startup_name}
-              width={80}
-              height={80}
-              className="w-20 h-20 sm:w-16 sm:h-16 object-cover rounded-md"
-            />
+            {startup.startup_logo ? (
+              <div className="relative w-20 h-20 sm:w-16 sm:h-16">
+                <Image
+                  src={startup.startup_logo}
+                  alt={startup.startup_name}
+                  fill
+                  sizes="(max-width: 640px) 80px, 64px"
+                  className="object-contain rounded-md"
+                  priority
+                />
+              </div>
+            ) : (
+              <div className="w-20 h-20 sm:w-16 sm:h-16 bg-gray-200 rounded-md flex items-center justify-center">
+                <span className="text-gray-500 text-xl font-bold">
+                  {startup.startup_name?.charAt(0) || "؟"}
+                </span>
+              </div>
+            )}
             <div className="flex flex-col w-full text-center sm:text-right">
               <h1 className="text-2xl sm:text-3xl font-bold mb-1">
                 {startup.startup_name}
@@ -111,9 +122,7 @@ export default function StartupDetails() {
           {startup.startup_investors &&
             startup.startup_investors.length > 0 && (
               <div className="mb-6 text-center sm:text-right">
-                <h2 className="text-lg font-semibold mb-2">
-                  المستثمرين فيها ..
-                </h2>
+                <h2 className="text-lg mb-2">المستثمرين فيها ..</h2>
                 <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
                   {startup.startup_investors.map((investor, index) => (
                     <Link

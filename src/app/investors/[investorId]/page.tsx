@@ -166,9 +166,7 @@ export default function InvestorDetailsPage() {
           {investor.investor_startups &&
             investor.investor_startups.length > 0 && (
               <div className="mb-8 text-center sm:text-right">
-                <h2 className="text-2xl font-semibold mb-4">
-                  الشركات المستثمر فيها
-                </h2>
+                <h2 className="text-2xl mb-4">الشركات المستثمر فيها ..</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {investor.investor_startups.map((startup) => (
                     <div
