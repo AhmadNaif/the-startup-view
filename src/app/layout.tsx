@@ -10,14 +10,14 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | The Startup View",
-    default: "The Startup View",
+    template: "%s | ستارت اب فيو",
+    default: "ستارت اب فيو",
   },
-  description: "Your gateway to startup insights and services",
+  description: "بوابتك للأستكشاف في عالم الشركات الناشئة وصناديق الأستثمار",
   viewport: "width=device-width, initial-scale=1",
   themeColor: "#ffffff",
   icons: {
-    icon: "/favicon.ico",
+    icon: "startupviewfavicon.png",
   },
 };
 
