@@ -83,7 +83,7 @@ export default function IndustryList() {
       role="navigation"
       aria-label="Industry filter"
     >
-      <h1 className="font-bold text-2xl sm:text-3xl mb-4 sm:mb-6">
+      <h1 className="text-2xl sm:text-3xl mb-4 sm:mb-6">
         استكشف الشركات الناشئة
       </h1>
 
